@@ -1,4 +1,4 @@
-# Apple-Sales-1M+-records
+# Apple Sales-1M+ records
 POSTRAGE SQL, EXCEL
 
 # Apple Retail Sales SQL Project - Analyzing Millions of Sales Rows
