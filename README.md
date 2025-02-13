@@ -133,7 +133,23 @@ WHERE store_id NOT IN(
                 RIGHT JOIN warranty 
                 ON sales.sale_id=warranty.sale_id)
 ```
-6. Calculate the percentage of warranty claims marked as "Warranty Void".
+5. Calculate the percentage of warranty claims marked as "Warranty Void".
+```sql
+SELECT repair_status,
+   (count(repair_status)* 1.0 / (SELECT count(repair_status) FROM warranty))*100 AS percent
+FROM warranty
+WHERE repair_status='Warranty Void'
+GROUP BY repair_status
+```
+
+OR
+
+```sql
+SELECT ROUND(COUNT(*)/ (SELECT COUNT(*) FROM warranty) :: numeric *100,2) AS percentage
+FROM warranty
+WHERE repair_status='Warranty Void'
+```
+
 7. Identify which store had the highest total units sold in the last year.
 8. Count the number of unique products sold in the last year.
 9. Find the average price of products in each category.
