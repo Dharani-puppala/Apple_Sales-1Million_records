@@ -175,8 +175,7 @@ GROUP BY 1,2
 ORDER BY 2 DESC
 LIMIT 1;
 ```
-If you want the top store of the last full calendar year, use the first query.
-If you want the top store based on the last rolling 12 months, use the second query.
+To find the top store of the last full calendar year, use the first query or the top store based on the last rolling 12 months, use the second query.
 
 9. Count the number of unique products sold in the last year.
 10. Find the average price of products in each category.
