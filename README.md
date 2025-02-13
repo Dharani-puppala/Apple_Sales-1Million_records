@@ -76,21 +76,21 @@ SELECT*FROM sales
 WHERE store_id='ST-31'
 ```
 
-- Planning Time -0.166ms
--  Execution Time -112.613ms
+- Planning Time = 0.166ms
+-  Execution Time = 112.613ms
 
 ```sql
 CREATE INDEX sales_store_id ON sales(store_id);
 ```
 
-- Planning Time -0.143ms
--  Execution Time -1.794ms
+- Planning Time = 0.143ms
+-  Execution Time = 1.794ms
 
 ```sql
 CREATE INDEX sales_store_date ON sales(sale_date);
 ```
-- Planning Time -0.204ms
-- Execution Time -1.889ms
+- Planning Time = 0.204ms
+- Execution Time = 1.889ms
 By creating indexes for individual columns the time of planning and execution dropped rapidly.
 
 ## Objectives
