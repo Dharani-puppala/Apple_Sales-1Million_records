@@ -124,7 +124,15 @@ WHERE EXTRACT( YEAR  FROM sale_date) = 2023 AND EXTRACT(Month FROM sale_date) = 
  FROM sales
  WHERE TO_CHAR(sale_date,'MM-YYYY') = '12-2023'
 ```
-5. Determine how many stores have never had a warranty claim filed.
+4. Determine how many stores have never had a warranty claim filed.
+```sql
+   SELECT COUNT(*) FROM stores 
+   WHERE store_id NOT IN(
+                SELECT DISTINCT store_id
+                FROM sales
+                RIGHT JOIN warranty 
+                ON sales.sale_id=warranty.sale_id)
+```
 6. Calculate the percentage of warranty claims marked as "Warranty Void".
 7. Identify which store had the highest total units sold in the last year.
 8. Count the number of unique products sold in the last year.
