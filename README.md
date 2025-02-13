@@ -49,6 +49,48 @@ The project uses five main tables:
    - `claim_date`: Date the claim was made.
    - `sale_id`: References the sales table.
    - `repair_status`: Status of the warranty claim (e.g., Paid Repaired, Warranty Void).
+## Exploratory Data Analysis
+```sql
+SELECT  DISTINCT repair_status FROM warranty;
+SELECT COUNT(*) FROM sales;
+```
+### Improving query performance
+```sql
+EXPLAIN ANALYZE
+SELECT * FROM sales
+WHERE product_id ='P-44'
+```
+
+- Execution time= 134.590ms
+- planning time = 0.111ms
+
+```sql
+CREATE INDEX sales_products_id ON sales(product_id);
+```
+- Execution time= 5.097ms
+- planning time = 0.138ms
+
+```sql
+EXPLAIN ANALYZE
+SELECT*FROM sales
+WHERE store_id='ST-31'
+```
+
+- Planning Time -0.166ms
+-  Execution Time -112.613ms
+
+```sql
+CREATE INDEX sales_store_id ON sales(store_id);
+```
+
+- Planning Time -0.143ms
+-  Execution Time -1.794ms
+
+```sql
+CREATE INDEX sales_store_date ON sales(sale_date);
+```
+- Planning Time -0.204ms
+- Execution Time -1.889ms
 
 ## Objectives
 
