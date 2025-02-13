@@ -114,7 +114,7 @@ By creating indexes for individual columns the time of planning and execution dr
 ```
 3. Identify how many sales occurred in December 2023.
  ```sql
-   SELECT count(sale_id) AS s
+ SELECT count(sale_id) AS s
 FROM sales
 WHERE EXTRACT( YEAR  FROM sale_date) = 2023 AND EXTRACT(Month FROM sale_date) = 12
 ```
@@ -126,8 +126,8 @@ WHERE EXTRACT( YEAR  FROM sale_date) = 2023 AND EXTRACT(Month FROM sale_date) = 
 ```
 4. Determine how many stores have never had a warranty claim filed.
 ```sql
-   SELECT COUNT(*) FROM stores 
-   WHERE store_id NOT IN(
+SELECT COUNT(*) FROM stores 
+WHERE store_id NOT IN(
                 SELECT DISTINCT store_id
                 FROM sales
                 RIGHT JOIN warranty 
