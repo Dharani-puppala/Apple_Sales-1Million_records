@@ -200,6 +200,10 @@ WHERE EXTRACT(YEAR FROM claim_date) = 2020
 ```
 10. For each store, identify the best-selling day based on highest quantity sold.
 ```sql
+SELECT store_id,SUM(quantity),TO_CHAR(sale_date,'Day') as day_name,
+RANK() OVER (PARTITION BY store_id ORDER BY SUM(quantity)DESC) as rank
+FROM sales
+GROUP BY 1,3
 
 ```
 11. Identify the least selling product in each country for each year based on total units sold.
