@@ -97,26 +97,32 @@ By creating indexes for individual columns the time of planning and execution dr
 ## Objectives
 
 1. Find the number of stores in each country.
-2. Calculate the total number of units sold by each store.
-3. Identify how many sales occurred in December 2023.
-4. Determine how many stores have never had a warranty claim filed.
-5. Calculate the percentage of warranty claims marked as "Warranty Void".
-6. Identify which store had the highest total units sold in the last year.
-7. Count the number of unique products sold in the last year.
-8. Find the average price of products in each category.
-9. How many warranty claims were filed in 2020?
-10. For each store, identify the best-selling day based on highest quantity sold.
-11. Identify the least selling product in each country for each year based on total units sold.
-12. Calculate how many warranty claims were filed within 180 days of a product sale.
-13. Determine how many warranty claims were filed for products launched in the last two years.
-14. List the months in the last three years where sales exceeded 5,000 units in the USA.
-15. Identify the product category with the most warranty claims filed in the last two years.
-16. Determine the percentage chance of receiving warranty claims after each purchase for each country.
-17. Analyze the year-by-year growth ratio for each store.
-18. Calculate the correlation between product price and warranty claims for products sold in the last five years, segmented by price range.
-19. Identify the store with the highest percentage of "Paid Repaired" claims relative to total claims filed.
-20. Write a query to calculate the monthly running total of sales for each store over the past four years and compare trends during this period.
-21. Analyze product sales trends over time, segmented into key periods: from launch to 6 months, 6-12 months, 12-18 months, and beyond 18 months.
+```sql
+   SELECT country, COUNT(*) AS cnt FROM stores
+   GROUP BY country
+   ORDER BY cnt DESC ;
+```
+   
+3. Calculate the total number of units sold by each store.
+4. Identify how many sales occurred in December 2023.
+5. Determine how many stores have never had a warranty claim filed.
+6. Calculate the percentage of warranty claims marked as "Warranty Void".
+7. Identify which store had the highest total units sold in the last year.
+8. Count the number of unique products sold in the last year.
+9. Find the average price of products in each category.
+10. How many warranty claims were filed in 2020?
+11. For each store, identify the best-selling day based on highest quantity sold.
+12. Identify the least selling product in each country for each year based on total units sold.
+13. Calculate how many warranty claims were filed within 180 days of a product sale.
+14. Determine how many warranty claims were filed for products launched in the last two years.
+15. List the months in the last three years where sales exceeded 5,000 units in the USA.
+16. Identify the product category with the most warranty claims filed in the last two years.
+17. Determine the percentage chance of receiving warranty claims after each purchase for each country.
+18. Analyze the year-by-year growth ratio for each store.
+19. Calculate the correlation between product price and warranty claims for products sold in the last five years, segmented by price range.
+20. Identify the store with the highest percentage of "Paid Repaired" claims relative to total claims filed.
+21. Write a query to calculate the monthly running total of sales for each store over the past four years and compare trends during this period.
+22. Analyze product sales trends over time, segmented into key periods: from launch to 6 months, 6-12 months, 12-18 months, and beyond 18 months.
 
 ## Project Focus
 
