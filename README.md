@@ -177,7 +177,12 @@ LIMIT 1;
 ```
 To find the top store of the last full calendar year, use the first query or the top store based on the last rolling 12 months, use the second query.
 
-9. Count the number of unique products sold in the last year.
+8. Count the number of unique products sold in the last year.
+```sql
+SELECT COUNT( DISTINCT product_id)
+FROM sales
+WHERE sale_date>=(CURRENT_DATE - INTERVAL '1 year')
+```
 10. Find the average price of products in each category.
 11. How many warranty claims were filed in 2020?
 12. For each store, identify the best-selling day based on highest quantity sold.
