@@ -194,7 +194,9 @@ ORDER BY 2
 ```
 9. How many warranty claims were filed in 2020?
 ```sql
-
+SELECT COUNT(claim_id)
+FROM warranty
+WHERE EXTRACT(YEAR FROM claim_date) = 2020
 ```
 10. For each store, identify the best-selling day based on highest quantity sold.
 ```sql
