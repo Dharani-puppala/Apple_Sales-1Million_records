@@ -112,7 +112,18 @@ By creating indexes for individual columns the time of planning and execution dr
    GROUP BY stores.store_id, stores.store_name
    ORDER BY QNT DESC ;
 ```
-4. Identify how many sales occurred in December 2023.
+3. Identify how many sales occurred in December 2023.
+ ```sql
+   SELECT count(sale_id) AS s
+FROM sales
+WHERE EXTRACT( YEAR  FROM sale_date) = 2023 AND EXTRACT(Month FROM sale_date) = 12
+```
+- OR
+ ```sql
+ SELECT COUNT(sale_id) AS s
+ FROM sales
+ WHERE TO_CHAR(sale_date,'MM-YYYY') = '12-2023'
+```
 5. Determine how many stores have never had a warranty claim filed.
 6. Calculate the percentage of warranty claims marked as "Warranty Void".
 7. Identify which store had the highest total units sold in the last year.
