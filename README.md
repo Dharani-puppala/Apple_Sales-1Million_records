@@ -103,7 +103,15 @@ By creating indexes for individual columns the time of planning and execution dr
    ORDER BY cnt DESC ;
 ```
    
-3. Calculate the total number of units sold by each store.
+2. Calculate the total number of units sold by each store.
+ ```sql
+   SELECT stores.store_name,stores.store_id,SUM(quantity) AS QNT 
+   FROM sales
+   INNER JOIN stores
+   ON sales.store_id = stores.store_id
+   GROUP BY stores.store_id, stores.store_name
+   ORDER BY QNT DESC ;
+```
 4. Identify how many sales occurred in December 2023.
 5. Determine how many stores have never had a warranty claim filed.
 6. Calculate the percentage of warranty claims marked as "Warranty Void".
