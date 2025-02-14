@@ -286,7 +286,31 @@ ORDER BY 4 DESC
 ```
 17. Analyze the year-by-year growth ratio for each store.
 ```sql
+WITH year_sales 
+AS(
+SELECT SL.store_id,
+ST.store_name,
+EXTRACT(YEAR FROM sale_date) as year,
+SUM(SL.quantity* P.price) as total_sale
+FROM sales AS SL
+JOIN products AS P
+ON SL.product_id=P.product_id
+JOIN stores AS ST
+ON ST.store_id=SL.store_id
+GROUP BY 1,2,3
+ORDER BY 2,3),
+growth_ratio 
+AS(
+SELECT store_name,year,
+LAG(total_sale,1) OVER(PARTITION BY store_name ORDER BY year) AS last_year_sale,
+total_sale as current_year_sale
 
+FROM year_sales 
+)
+SELECT store_name, last_year_sale,current_year_sale  ,(current_year_sale-last_year_sale)::numeric/last_year_sale::numeric * 100
+FROM growth_ratio
+WHERE last_year_sale IS NOT NULL AND
+YEAR<> EXTRACT(YEAR FROM CURRENT_DATE)
 ```
 18. Calculate the correlation between product price and warranty claims for products sold in the last five years, segmented by price range.
 ```sql
