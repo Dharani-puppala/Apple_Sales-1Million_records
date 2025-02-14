@@ -233,7 +233,15 @@ WHERE W.claim_date - S.sale_date <=180
 ```
 13. Determine how many warranty claims were filed for products launched in the last two years.
 ```sql
-
+SELECT PD.product_name, COUNT(W.claim_id) AS CC, COUNT(SL.sale_id) AS CS
+FROM warranty AS W
+RIGHT JOIN  sales AS SL
+ON W.sale_id=SL.sale_id
+JOIN products AS PD
+ON PD.product_id=SL.product_id
+WHERE PD.launch_date >= CURRENT_DATE -INTERVAL '2 years'
+GROUP BY 1
+HAVING COUNT(W.claim_id) >0
 ```
 14. List the months in the last three years where sales exceeded 5,000 units in the USA.
 ```sql
