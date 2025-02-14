@@ -256,7 +256,19 @@ HAVING SUM(SL.quantity) >5000
 ```
 15. Identify the product category with the most warranty claims filed in the last two years.
 ```sql
-
+SELECT
+	C.category_name,
+	COUNT(W.claim_id) AS total_claims
+FROM warranty as W
+LEFT JOIN
+sales as S
+ON W.sale_id= S.sale_id
+JOIN products as PD
+ON PD.product_id=S.product_id
+JOIN category as C
+ON C.category_id= PD.category_id
+WHERE W.claim_date >= CURRENT_DATE -INTERVAL '2 years'
+GROUP BY 1
 ```
 16. Determine the percentage chance of receiving warranty claims after each purchase for each country.
 ```sql
