@@ -225,7 +225,11 @@ WHERE ranks=1
 ```
 12. Calculate how many warranty claims were filed within 180 days of a product sale.
 ```sql
-
+SELECT COUNT(*)
+FROM warranty AS W
+LEFT JOIN sales AS S
+ON W.sale_id=S.sale_id
+WHERE W.claim_date - S.sale_date <=180
 ```
 13. Determine how many warranty claims were filed for products launched in the last two years.
 ```sql
