@@ -272,7 +272,17 @@ GROUP BY 1
 ```
 16. Determine the percentage chance of receiving warranty claims after each purchase for each country.
 ```sql
-
+SELECT country,QT,CT,
+	   COALESCE(CT::numeric/QT::numeric *100,0) AS risk
+FROM
+(SELECT ST.country,SUM(SL.quantity) AS QT,COUNT(W.claim_id) AS CT
+FROM sales AS SL
+JOIN stores  AS ST
+ON SL.store_id=ST.store_id
+LEFT JOIN warranty AS W
+ON W.sale_id=SL.sale_id
+GROUP BY 1)  t1
+ORDER BY 4 DESC
 ```
 17. Analyze the year-by-year growth ratio for each store.
 ```sql
