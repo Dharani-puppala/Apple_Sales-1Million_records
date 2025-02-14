@@ -246,6 +246,13 @@ HAVING COUNT(W.claim_id) >0
 14. List the months in the last three years where sales exceeded 5,000 units in the USA.
 ```sql
 
+SELECT  TO_CHAR(sale_date,'MM-YYYY') as month,SUM(SL.quantity)
+FROM sales AS SL
+JOIN stores AS ST
+ON SL.store_id =ST.store_id
+WHERE ST.country ='USA'  AND SL.sale_date >= CURRENT_DATE- INTERVAL'3 years'
+GROUP BY 1
+HAVING SUM(SL.quantity) >5000
 ```
 15. Identify the product category with the most warranty claims filed in the last two years.
 ```sql
