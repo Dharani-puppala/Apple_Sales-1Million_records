@@ -208,7 +208,20 @@ GROUP BY 1,3
 ```
 11. Identify the least selling product in each country for each year based on total units sold.
 ```sql
-
+WITH product_rank
+AS(
+SELECT ST.country,PD.product_name,SUM(SL.quantity) as QNT,
+RANK() OVER(PARTITION BY  ST.country ORDER BY SUM(Sl.quantity)) AS ranks
+FROM sales AS SL
+JOIN stores AS ST
+ON SL.store_id=ST.store_id
+JOIN Products as PD
+ON SL.product_id=PD.product_id
+GROUP BY 1,2
+)
+SELECT*
+FROM products
+WHERE ranks=1
 ```
 12. Calculate how many warranty claims were filed within 180 days of a product sale.
 ```sql
