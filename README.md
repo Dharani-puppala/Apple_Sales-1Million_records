@@ -353,7 +353,20 @@ ON T.store_id=P.store_id
 ```
 20. Write a query to calculate the monthly running total of sales for each store over the past four years and compare trends during this period.
 ```sql
-
+WITH monthly_sales
+AS(SELECT store_id,
+		EXTRACT(MONTH FROM sale_date) AS years,
+		EXTRACT(YEAR FROM sale_date) AS months,
+		SUM(P.price*S.quantity) AS total_revenue
+FROM sales as S
+JOIN
+products AS P
+ON S.product_id=P.product_id
+GROUP BY 1,2,3
+ORDER BY 1,2,3)
+SELECT store_id,months,years,total_revenue,
+		SUM(total_revenue) OVER(PARTITION BY store_id ORDER BY years,months) AS running_total
+FROM monthly_sales
 ```
 21. Analyze product sales trends over time, segmented into key periods: from launch to 6 months, 6-12 months, 12-18 months, and beyond 18 months.
 ```sql
