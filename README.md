@@ -314,7 +314,20 @@ YEAR<> EXTRACT(YEAR FROM CURRENT_DATE)
 ```
 18. Calculate the correlation between product price and warranty claims for products sold in the last five years, segmented by price range.
 ```sql
-
+SELECT
+	CASE
+		WHEN P.price < 500 THEN 'Less Expensive Products'
+		WHEN P.price BETWEEN 500 AND 1000 THEN 'Medium Expensive Products'
+		ELSE 'Expensive Product'
+		END AS price_segemnt,
+		W.claim_id
+FROM warranty as W
+LEFT JOIN sales as S
+ON W.sale_id=S.sale_id
+JOIN products as P
+ON P.product_id=S.product_id
+WHEN claim_date >= CURRENT_DATE - INTERVAL '5 year'
+GROUP BY 2
 ```
 19. Identify the store with the highest percentage of "Paid Repaired" claims relative to total claims filed.
 ```sql
