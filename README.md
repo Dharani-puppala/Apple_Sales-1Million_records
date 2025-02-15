@@ -370,7 +370,19 @@ FROM monthly_sales
 ```
 21. Analyze product sales trends over time, segmented into key periods: from launch to 6 months, 6-12 months, 12-18 months, and beyond 18 months.
 ```sql
-
+SELECT P.product_name,
+CASE
+	WHEN S.sale_date BETWEEN P.launch_date AND P.launch_date+INTERVAL'6 month' THEN '0-6'
+	WHEN S.sale_date BETWEEN P.launch_date AND P.launch_date+INTERVAL'12 month' THEN '6-12'
+	WHEN S.sale_date BETWEEN P.launch_date AND P.launch_date+INTERVAL'18 month' THEN '12-18'
+	ELSE '18+'
+END AS plc,
+SUM(S.quantity) AS total_qnt
+FROM sales AS S
+JOIN  products AS P
+ON S.product_id=P.product_id
+GROUP BY 1,2
+ORDER BY 1,3
 ```
 
 ## Project Focus
