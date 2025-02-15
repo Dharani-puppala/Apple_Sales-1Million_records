@@ -331,7 +331,25 @@ GROUP BY 2
 ```
 19. Identify the store with the highest percentage of "Paid Repaired" claims relative to total claims filed.
 ```sql
-
+WITH 
+total_repaired
+AS(SELECT store_id, COUNT(claim_id) as total_repaired
+FROM sales as s
+JOIN warranty as w
+ON w.sale_id = s.sale_id
+GROUP BY 1
+),
+paid_repaired
+AS(SELECT  store_id, COUNT(claim_id) as paid_repaired
+FROM sales as s
+JOIN warranty as w
+ON w.sale_id = s.sale_id
+WHERE w.repair_status = 'Paid Repaired'
+GROUP BY 1)
+SELECT (paid_repaired::numeric/total_repaired::numeric)*100
+FROM total_repaired AS T
+JOIN paid_repaired AS P
+ON T.store_id=P.store_id
 ```
 20. Write a query to calculate the monthly running total of sales for each store over the past four years and compare trends during this period.
 ```sql
